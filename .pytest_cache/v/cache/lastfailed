@@ -1,0 +1,20 @@
+{
+  "tests/test_registration.py::test_successful_registration": true,
+  "tests/test_registration.py::test_registration_with_short_password": true,
+  "tests/tests/tests/test_personal_account.py": true,
+  "tests/tests/test_login.py::test_login_from_main": true,
+  "tests/tests/test_login.py::test_login_from_personal_account_button": true,
+  "tests/test_registration.py::test_short_password_error": true,
+  "tests/test_personal_account.py::test_go_to_personal_account": true,
+  "tests/test_personal_account.py::test_go_from_personal_account_to_constructor": true,
+  "tests/test_personal_account.py::test_go_from_personal_account_via_logo": true,
+  "tests/test_personal_account.py::test_logout": true,
+  "tests/tests/test_login.py::test_login_via_main_page_button": true,
+  "tests/tests/test_login.py::test_login_via_personal_account_button": true,
+  "tests/tests/test_login.py::test_login_via_registration_form": true,
+  "tests/tests/test_login.py::test_login_via_password_recovery": true,
+  "tests/test_login.py::test_login_via_main_page_button": true,
+  "tests/test_login.py::test_login_via_personal_account_button": true,
+  "tests/test_login.py::test_login_via_registration_form": true,
+  "tests/test_login.py::test_login_via_password_recovery": true
+}
