@@ -1,0 +1,23 @@
+[flake8]
+exclude = 
+    .venv,
+    __pycache__,
+    migrations,
+    build,
+    dist,
+    .git,
+    .vscode
+ignore = 
+    E302,
+    W391,
+    W292,
+    E305,
+    E741,
+    W503,
+    E501,
+    E303,
+    E304
+max-line-length = 120
+per-file-ignores =
+    __init__.py: W391
+    tests/__init__.py: W391

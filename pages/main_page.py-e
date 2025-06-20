@@ -1,0 +1,31 @@
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+class MainPage:
+    LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
+    PERSONAL_ACCOUNT_BUTTON = (By.XPATH, "//p[text()='Личный кабинет']")
+    ORDER_BUTTON = (By.XPATH, "//button[text()='Оформить заказ']")
+
+    def __init__(self, browser):
+        self.browser = browser
+
+    def open(self):
+        self.browser.get("https://stellarburgers.nomoreparties.site/")
+
+    def click_login_button(self):
+        WebDriverWait(self.browser, 10).until(
+            EC.element_to_be_clickable(self.LOGIN_BUTTON)
+        ).click()
+
+    def click_personal_account_button(self):
+        WebDriverWait(self.browser, 10).until(
+            EC.element_to_be_clickable(self.PERSONAL_ACCOUNT_BUTTON)
+        ).click()
+
+    def should_be_order_button(self):
+        assert WebDriverWait(self.browser, 10).until(
+            EC.visibility_of_element_located(self.ORDER_BUTTON)
+        ), "Кнопка 'Оформить заказ' не отображается"
+
+
