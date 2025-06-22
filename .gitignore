@@ -24,3 +24,44 @@ build/
 report.html
 test_results/
 coverage.xml
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+
+# Игнорирование папок
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Игнорирование отчётов
+report.html
+debug_screenshot.png
+
+# Игнорирование служебных файлов
+.idea/
+fix_all_style_issues.py
+
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+
+# Игнорирование папок
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Игнорирование отчётов
+report.html
+debug_screenshot.png
+
+# Игнорирование служебных файлов
+.idea/
+fix_all_style_issues.py
