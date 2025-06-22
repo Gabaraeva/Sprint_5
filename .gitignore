@@ -1,5 +1,26 @@
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+*.log
+*.tmp
+*.bak
+
+# Игнорирование папок
 .idea/
+__pycache__/
 .pytest_cache/
 .venv/
-__pycache__/
-*.pyc
+venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# Игнорирование отчётов и результатов тестов
+report.html
+test_results/
+coverage.xml
