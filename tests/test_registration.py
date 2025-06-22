@@ -1,78 +1,39 @@
-from selenium import webdriver  # Добавляем этот импорт
-from selenium.webdriver.chrome.service import Service as ChromeService
-from webdriver_manager.chrome import ChromeDriverManager
-import time
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from pages.registration_page import RegistrationPage
+from locators.registration_page_locators import RegistrationPageLocators
+from urls import MAIN_PAGE_URL  # Удален неиспользуемый импорт REGISTRATION_PAGE_URL
 
 
-def test_debug():
-    try:
-        # Автоматически скачиваем и устанавливаем chromedriver
-        print("Устанавливаю ChromeDriver...")
-        service = ChromeService(ChromeDriverManager().install())
+def test_successful_user_registration(browser):
+    """
+    Тест успешной регистрации пользователя
+    """
+    # Инициализация страницы регистрации
+    registration_page = RegistrationPage(browser)
 
-        # Создаем драйвер
-        print("Запускаю браузер...")
-        driver = webdriver.Chrome(service=service)
+    # Открываем страницу регистрации (URL используется внутри класса)
+    registration_page.open()
 
-        try:
-            # Открываем страницу регистрации
-            print("Открываю страницу регистрации...")
-            driver.get("https://stellarburgers.nomoreparties.site/register")
-            time.sleep(3)  # Даем странице время загрузиться
+    # Проверяем, что открылась именно страница регистрации
+    WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located(RegistrationPageLocators.REGISTRATION_TITLE)
+    )
 
-            # Печатаем заголовок страницы
-            print("Заголовок страницы:", driver.title)
+    # Заполняем форму регистрации
+    registration_page.register(
+        name="Тестовый Пользователь",
+        email="test_user@example.com",
+        password="Password123"
+    )
 
-            # Пробуем найти поле email
-            print("Пробую найти поле email...")
-            email_field = None
+    # Проверяем переход на главную страницу после регистрации
+    WebDriverWait(browser, 10).until(
+        EC.url_to_be(MAIN_PAGE_URL)
+    )
 
-            # Вариант 1: По XPATH
-            try:
-                email_field = driver.find_element("xpath", "//input[@type='email']")
-                print("Успех! Нашел поле по XPATH: //input[@type='email']")
-            except Exception as e:
-                print(f"Не удалось найти по XPATH: {str(e)}")
-
-            # Вариант 2: По CSS селектору
-            if email_field is None:
-                try:
-                    email_field = driver.find_element("css selector", "input[type=email]")
-                    print("Успех! Нашел поле по CSS: input[type=email]")
-                except Exception as e:
-                    print(f"Не удалось найти по CSS: {str(e)}")
-
-            # Вариант 3: По имени
-            if email_field is None:
-                try:
-                    email_field = driver.find_element("name", "email")
-                    print("Успех! Нашел поле по имени: email")
-                except Exception as e:
-                    print(f"Не удалось найти по имени: {str(e)}")
-
-            # Если поле найдено, заполняем его
-            if email_field is not None:
-                email_field.send_keys("test@example.com")
-                print("Поле email заполнено успешно!")
-            else:
-                print("\nНе удалось найти поле email. Вывожу фрагмент HTML-кода:")
-                print(driver.page_source[:2000])  # Первые 2000 символов кода
-                print("\nСкриншот страницы сохранен как debug_screenshot.png")
-                driver.save_screenshot("debug_screenshot.png")
-
-        finally:
-            # Закрываем браузер в любом случае
-            print("Закрываю браузер...")
-            driver.quit()
-
-    except Exception as e:
-        print(f"\nПроизошла ошибка при инициализации: {str(e)}")
-
-    print("Тест завершен!")
-
-
-
-
-if __name__ == "__main__":
-    test_debug()
-
+    # Проверяем наличие кнопки "Оформить заказ" на главной странице
+    order_button = WebDriverWait(browser, 10).until(
+        EC.visibility_of_element_located(RegistrationPageLocators.ORDER_BUTTON)
+    )
+    assert order_button.is_displayed(), "После регистрации не отображается кнопка 'Оформить заказ'"

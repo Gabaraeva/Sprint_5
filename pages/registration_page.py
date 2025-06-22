@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from urls import REGISTRATION_PAGE_URL  # Импортируем URL из urls.py
 
 class RegistrationPage:
     # Локаторы
@@ -10,22 +10,19 @@ class RegistrationPage:
     PASSWORD_INPUT = (By.XPATH, "//input[@name='password']")
     REGISTER_BUTTON = (By.XPATH, "//button[text()='Зарегистрироваться']")
     LOGIN_LINK = (By.XPATH, "//a[text()='Войти']")
+    REGISTRATION_TITLE = (By.XPATH, "//h2[text()='Регистрация']")  # Добавлен атрибут класса
 
-    # Конструктор класса (добавьте этот метод)
     def __init__(self, browser):
         self.browser = browser
-        self.wait = WebDriverWait(browser, 15)  # Инициализация ожидания
+        self.wait = WebDriverWait(browser, 15)
 
     def open(self):
-        self.browser.get("https://stellarburgers.nomoreparties.site/register")
+        self.browser.get(REGISTRATION_PAGE_URL)  # Используем константу из urls.py
 
-        # Ожидание загрузки страницы
-        self.wait.until(EC.visibility_of_element_located(
-            (By.XPATH, "//h2[text()='Регистрация']")
-        ))
+        # Используем атрибут класса для ожидания
+        self.wait.until(EC.visibility_of_element_located(self.REGISTRATION_TITLE))
 
     def register(self, name, email, password):
-        # Используем wait для всех элементов
         self.wait.until(EC.visibility_of_element_located(self.NAME_INPUT)).send_keys(name)
         self.wait.until(EC.visibility_of_element_located(self.EMAIL_INPUT)).send_keys(email)
         self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT)).send_keys(password)

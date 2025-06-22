@@ -1,13 +1,20 @@
+TEST_USER = {
+    "email": "test_user@example.com",
+    "password": "secure_password123"
+}
+
+# Дополнительные функции генерации данных (если нужны)
 import random
 import string
 
-
 def generate_email():
-    return "test_" + ''.join(random.choices(string.ascii_lowercase, k=7)) + "@example.com"
+    """Генерирует случайный email"""
+    return f"test_{random_string(7)}@example.com"
 
+def generate_password(length=10):
+    """Генерирует случайный пароль"""
+    return random_string(length)
 
-
-
-def generate_password():
-    return ''.join(random.choices(string.ascii_letters + string.digits, k=10))
-
+def random_string(length):
+    """Генерирует случайную строку заданной длины"""
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=length))

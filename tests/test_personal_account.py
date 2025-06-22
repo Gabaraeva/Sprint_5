@@ -1,21 +1,9 @@
 from pages.main_page import MainPage
-from pages.personal_account_page import PersonalAccountPage
 from pages.login_page import LoginPage
-import pytest
-
-
-@pytest.fixture
-
-def authorized_user(browser, registered_user):
-    """Фикстура для авторизованного пользователя"""
-    main_page = MainPage(browser)
-    main_page.open()
-    main_page.click_login_button()
-
-    login_page = LoginPage(browser)
-    login_page.login(registered_user['email'], registered_user['password'])
-
-    return registered_user
+from selenium.webdriver.common.by import By  # Импорт By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from urls import PERSONAL_ACCOUNT_URL, LOGIN_PAGE_URL, MAIN_PAGE_URL  # Импорт URL
 
 
 def test_go_to_personal_account(browser, authorized_user):
@@ -23,45 +11,65 @@ def test_go_to_personal_account(browser, authorized_user):
     main_page = MainPage(browser)
     main_page.click_personal_account_button()
 
-    account_page = PersonalAccountPage(browser)
-    account_page.should_be_profile_section()
+    # Явное ожидание загрузки страницы профиля
+    WebDriverWait(browser, 10).until(
+        EC.url_contains("/account/profile")
+    )
+
+    # Проверяем, что открылась страница профиля
+    assert "account/profile" in browser.current_url, "Не удалось перейти в личный кабинет"
 
 
 def test_go_from_personal_account_to_constructor(browser, authorized_user):
     """Проверка перехода из ЛК в конструктор"""
+    # Переходим в личный кабинет
+    browser.get(PERSONAL_ACCOUNT_URL)
+
+    # Кликаем на "Конструктор"
+    browser.find_element(By.XPATH, "//p[text()='Конструктор']").click()
+
+    # Проверяем переход на главную страницу
+    WebDriverWait(browser, 10).until(
+        EC.url_to_be(MAIN_PAGE_URL)
+    )
+
+    # Проверяем наличие кнопки заказа
     main_page = MainPage(browser)
-    main_page.click_personal_account_button()
-
-    account_page = PersonalAccountPage(browser)
-    account_page.click_constructor_link()
-
-    assert "stellarburgers" in browser.current_url
     main_page.should_be_order_button()
 
 
 def test_go_from_personal_account_via_logo(browser, authorized_user):
     """Проверка перехода через логотип"""
+    # Переходим в личный кабинет
+    browser.get(PERSONAL_ACCOUNT_URL)
+
+    # Кликаем на логотип
+    browser.find_element(By.XPATH, "//div[contains(@class, 'logo')]").click()
+
+    # Проверяем переход на главную страницу
+    WebDriverWait(browser, 10).until(
+        EC.url_to_be(MAIN_PAGE_URL)
+    )
+
+    # Проверяем наличие кнопки заказа
     main_page = MainPage(browser)
-    main_page.click_personal_account_button()
-
-    account_page = PersonalAccountPage(browser)
-    account_page.click_logo()
-
-    assert "stellarburgers" in browser.current_url
     main_page.should_be_order_button()
-
-
 
 
 def test_logout(browser, authorized_user):
     """Проверка выхода из аккаунта"""
-    main_page = MainPage(browser)
-    main_page.click_personal_account_button()
+    # Переходим в личный кабинет
+    browser.get(PERSONAL_ACCOUNT_URL)
 
-    account_page = PersonalAccountPage(browser)
-    account_page.logout()
+    # Кликаем "Выход"
+    browser.find_element(By.XPATH, "//button[text()='Выход']").click()
 
-    assert "login" in browser.current_url
+    # Проверяем переход на страницу входа
+    WebDriverWait(browser, 10).until(
+        EC.url_to_be(LOGIN_PAGE_URL)
+    )
+
+    # Проверяем наличие формы входа
     login_page = LoginPage(browser)
     login_page.should_be_login_form()
 

@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
+from urls import MAIN_PAGE_URL  # Импортируем из urls.py
 
 class MainPage:
     LOGIN_BUTTON = (By.XPATH, "//button[text()='Войти в аккаунт']")
@@ -12,7 +12,7 @@ class MainPage:
         self.browser = browser
 
     def open(self):
-        self.browser.get("https://stellarburgers.nomoreparties.site/")
+        self.browser.get(MAIN_PAGE_URL)  # Используем константу из urls.py
 
     def click_login_button(self):
         WebDriverWait(self.browser, 20).until(
@@ -25,7 +25,7 @@ class MainPage:
         ).click()
 
     def should_be_order_button(self):
+        # Исправленная строка (замена точки на скобку)
         assert WebDriverWait(self.browser, 20).until(
             EC.visibility_of_element_located(self.ORDER_BUTTON)
         ), "Кнопка 'Оформить заказ' не отображается"
-
