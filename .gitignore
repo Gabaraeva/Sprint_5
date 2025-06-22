@@ -65,3 +65,9 @@ debug_screenshot.png
 # Игнорирование служебных файлов
 .idea/
 fix_all_style_issues.py
+
+# Конфиги
+.flake8
+
+# Временные файлы IDE
+.vscode/
