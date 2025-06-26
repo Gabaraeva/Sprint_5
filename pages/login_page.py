@@ -37,8 +37,4 @@ class LoginPage:
         link.click()
 
 
-    def should_be_login_form(self):
-            """Проверяем наличие элементов формы входа"""
-            self.wait.until(EC.visibility_of_element_located(self.EMAIL_INPUT))
-            self.wait.until(EC.visibility_of_element_located(self.PASSWORD_INPUT))
-            self.wait.until(EC.visibility_of_element_located(self.LOGIN_BUTTON))
+    
