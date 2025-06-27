@@ -1,0 +1,5 @@
+MAIN_PAGE_URL = "https://stellarburgers.nomoreparties.site"
+LOGIN_PAGE_URL = f"{MAIN_PAGE_URL}/login"
+REGISTRATION_PAGE_URL = f"{MAIN_PAGE_URL}/register"
+PASSWORD_RECOVERY_URL = f"{MAIN_PAGE_URL}/forgot-password"
+PERSONAL_ACCOUNT_URL = f"{MAIN_PAGE_URL}/account/profile"

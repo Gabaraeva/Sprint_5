@@ -1,0 +1,73 @@
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+*.log
+*.tmp
+*.bak
+
+# Игнорирование папок
+.idea/
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+env/
+dist/
+build/
+*.egg-info/
+
+# Игнорирование отчётов и результатов тестов
+report.html
+test_results/
+coverage.xml
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+
+# Игнорирование папок
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Игнорирование отчётов
+report.html
+debug_screenshot.png
+
+# Игнорирование служебных файлов
+.idea/
+fix_all_style_issues.py
+
+# Игнорирование временных файлов
+*.pyc
+*.pyo
+*.pyd
+*.py-e
+*.save
+*.png
+
+# Игнорирование папок
+__pycache__/
+.pytest_cache/
+.venv/
+
+# Игнорирование отчётов
+report.html
+debug_screenshot.png
+
+# Игнорирование служебных файлов
+.idea/
+fix_all_style_issues.py
+
+# Конфиги
+.flake8
+
+# Временные файлы IDE
+.vscode/
